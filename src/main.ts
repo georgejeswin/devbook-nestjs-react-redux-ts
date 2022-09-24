@@ -7,7 +7,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
-  const port: number = config.get<number>('PORT');
+  // const port: number = config.get<number>('PORT');
   app.setGlobalPrefix('/api');
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Dev Book')
@@ -20,7 +20,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  await app.listen(port, () => {
+  await app.listen(process.env.PORT, () => {
     console.log('[WEB]', config.get<string>('BASE_URL'));
   });
 }
