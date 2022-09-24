@@ -31,6 +31,7 @@ export class Post {
     nullable: true,
   })
   description: string;
+
   @ApiProperty({ example: 'test image', description: 'description of image' })
   @Column({
     type: 'text',
