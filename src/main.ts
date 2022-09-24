@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
   const port: number = config.get<number>('PORT');
+  app.setGlobalPrefix('/api');
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Dev Book')
     .setDescription('Dev Book API description')
@@ -15,9 +16,7 @@ async function bootstrap() {
     .addTag('devbook')
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('swagger', app, document);
-
-  app.setGlobalPrefix('/api');
+  SwaggerModule.setup('api/swagger', app, document);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 

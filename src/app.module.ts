@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './typeorm/typeorm.service';
 import { PostsModule } from './posts/posts.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { PostsModule } from './posts/posts.module';
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     PostsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
