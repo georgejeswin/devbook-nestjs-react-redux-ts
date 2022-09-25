@@ -33,11 +33,17 @@ export class AuthService {
     }
   }
 
+  async generateAccessToken(payload: any) {
+    return this.jwtService.sign(payload);
+  }
+
   async loginUser(user: User): Promise<any> {
     try {
-      const payload = { username: user.username, id: user.id };
+      const payload = { username: user.username, sub: user.id };
+      const token = await this.generateAccessToken(payload);
       return {
-        access_token: this.jwtService.sign(payload),
+        access_token: token,
+        user: user,
       };
     } catch (error) {
       console.log('Error login user: ', error);

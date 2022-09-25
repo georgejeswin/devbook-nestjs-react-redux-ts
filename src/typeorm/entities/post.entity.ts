@@ -2,18 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from './user.entity';
 
 @Entity()
 export class Post {
-  @ApiProperty({ example: 1, description: 'uuid' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty({ example: 'test title', description: ' title of post' })
   @Column({
     type: 'text',
     name: 'title',
@@ -21,10 +21,6 @@ export class Post {
   })
   title: string;
 
-  @ApiProperty({
-    example: 'test description',
-    description: 'description of post',
-  })
   @Column({
     type: 'text',
     name: 'description',
@@ -32,7 +28,6 @@ export class Post {
   })
   description: string;
 
-  @ApiProperty({ example: 'test image', description: 'description of image' })
   @Column({
     type: 'text',
     name: 'image',
@@ -40,17 +35,12 @@ export class Post {
   })
   image: string;
 
-  @ApiProperty({
-    example: 'Date',
-    description: 'Date of post creation',
-  })
   @CreateDateColumn()
   created_at: Date;
 
-  @ApiProperty({
-    example: 'Date',
-    description: 'Date of post updation',
-  })
   @UpdateDateColumn()
   updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.posts, { onDelete: 'SET NULL' })
+  user: User;
 }

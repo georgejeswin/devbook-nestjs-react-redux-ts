@@ -11,9 +11,22 @@ export class PostsService {
   ) {}
   async getAllPosts() {
     try {
-      return this.postRepository.find();
+      return this.postRepository.find({
+        relations: {
+          user: true,
+        },
+      });
     } catch (error) {
       console.log('Get All Posts Error: ', error);
+    }
+  }
+
+  async createPost(createPostDto: any) {
+    try {
+      const post = await this.postRepository.create(createPostDto);
+      return this.postRepository.save(post);
+    } catch (error) {
+      console.log('Create Post Error: ', error);
     }
   }
 }
