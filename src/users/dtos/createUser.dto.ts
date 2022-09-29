@@ -25,4 +25,6 @@ export class CreateUserDto {
   @ApiProperty({ example: 'test', description: 'last name of user' })
   @IsString()
   lastName: string;
+
+  refresh_token: string;
 }

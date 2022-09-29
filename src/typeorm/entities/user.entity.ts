@@ -45,6 +45,13 @@ export class User {
   })
   userType: UserType;
 
+  @Column({
+    type: 'text',
+    nullable: true,
+    default: '',
+  })
+  refresh_token: string;
+
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 }

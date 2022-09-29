@@ -19,6 +19,15 @@ export class UsersService {
       console.log('Find all users failed', error);
     }
   }
+
+  async findUserById(id: string): Promise<User> {
+    try {
+      return this.userRepository.findOne({ where: { id } });
+    } catch (error) {
+      console.log('Find by id failed', error);
+    }
+  }
+
   async findUserByUsername(username: string): Promise<User> {
     try {
       return this.userRepository.findOne({ where: { username } });
@@ -42,5 +51,9 @@ export class UsersService {
     } catch (error) {
       console.log('Create user failed', error);
     }
+  }
+
+  async updateUser(id: string, updateUserDto: any): Promise<any> {
+    return this.userRepository.update(id, updateUserDto);
   }
 }

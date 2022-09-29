@@ -8,6 +8,7 @@ export interface User {
   lastName: string;
   password: string;
   userType: UserType;
+  refresh_token?: string;
 }
 
 export enum UserType {
