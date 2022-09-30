@@ -38,7 +38,7 @@ export class PostsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
-  @Post('/create')
+  @Post('create')
   async createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
     const user = await this.userService.findUserByUsername(req?.user?.username);
     const serializedUser = omit(user, ['password']);

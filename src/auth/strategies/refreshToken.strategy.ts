@@ -10,13 +10,15 @@ export class RefreshTokenStrategy extends PassportStrategy(
 ) {
   constructor(private configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromHeader('refresh_token'),
       secretOrKey: configService.get<string>('JWT_REFRESH_SECRET'),
       passReqToCallback: true,
     });
   }
   validate(@Request() req, payload: any) {
-    const refreshToken = req.headers.authorization.replace('Bearer', '').trim();
+    console.log('>>>>>>>>>', req.headers);
+    // const refreshToken = req.headers.authorization.replace('Bearer', '').trim();
+    const refreshToken = req.headers.refresh_token;
     return { ...payload, refreshToken };
   }
 }
