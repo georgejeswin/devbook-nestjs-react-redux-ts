@@ -14,7 +14,6 @@ export class CreatePostDto {
   @IsString()
   description: string;
 
-  @ApiProperty({ example: 'test image', description: 'description of image' })
   @IsString()
   image: string;
 }

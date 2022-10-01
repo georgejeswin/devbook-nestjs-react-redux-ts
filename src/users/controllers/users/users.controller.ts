@@ -27,8 +27,6 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('/profile')
   async getMe(@Request() req) {
-    // const user = this.jwtService.decode(req.rawHeaders[1].split(' ')[1]);
-    console.log('user', req.user);
     return req.user;
   }
 }
