@@ -1,14 +1,17 @@
 import {
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Request,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UsersService } from 'src/users/services/users/users.service';
+import { SerializedUser } from 'src/users/types';
 
 @Controller('users')
 export class UsersController {
@@ -24,9 +27,11 @@ export class UsersController {
     else throw new HttpException('Users not found', HttpStatus.NOT_FOUND);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
-  @Get('/profile')
+  @Get('profile')
   async getMe(@Request() req) {
-    return req.user;
+    const user = await this.usersService.findUserByUsername(req.user.username);
+    if (user) return new SerializedUser(user);
   }
 }

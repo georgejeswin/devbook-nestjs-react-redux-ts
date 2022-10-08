@@ -32,6 +32,9 @@ export class SerializedUser {
   @Exclude()
   password: string;
 
+  @Exclude()
+  refresh_token: string;
+
   constructor(partial: Partial<SerializedUser>) {
     Object.assign(this, partial);
   }

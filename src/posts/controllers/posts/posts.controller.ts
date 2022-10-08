@@ -7,13 +7,13 @@ import {
   HttpStatus,
   Post,
   Request,
-  UploadedFile,
+  // UploadedFile,
   UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+// import { FileInterceptor } from '@nestjs/platform-express';
 import { omit } from 'lodash';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePostDto } from 'src/posts/dtos/createPost.dto';
